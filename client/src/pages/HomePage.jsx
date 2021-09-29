@@ -17,27 +17,26 @@ const Text = styled.p`
 const LogIn = () => {
    const [user, setUser] = useState([]);
 
-   console.log(user);
+   const fetchUsers = async () => {
+      const response = await api.get('users');
+      const data = await response.data;
+      console.log(data);
+      setUser(data);
+   };
 
    useEffect(() => {
-      const getInformations = async () => {
-         try {
-            const { data } = await api.get('users');
-            setUser(data);
-         } catch (error) {
-            console.log(error);
-         }
-      };
-      getInformations();
+      fetchUsers();
    }, []);
 
    return (
       <Container>
-         <InformatiosContent>
-            <Text>Id: {user?.id}</Text>
-            <Text>Name: {user?.name}</Text>
-            <Text>Email: {user?.email}</Text>
-         </InformatiosContent>
+         {user?.map((item, index) => (
+            <InformatiosContent key={item.id + index.toString()}>
+               <Text>Id: {item._id}</Text>
+               <Text>Name: {item.name}</Text>
+               <Text>Email: {item.email}</Text>
+            </InformatiosContent>
+         ))}
       </Container>
    );
 };
