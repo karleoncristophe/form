@@ -150,11 +150,15 @@ const LogIn = () => {
                      Sign Up
                   </SignUp>
                </Link>
-               <Link to="/createAccount">
-                  <SignIn disabled={email !== '' || password !== ''}>
-                     Sign In
-                  </SignIn>
-               </Link>
+               {email || password !== '' ? (
+                  ''
+               ) : (
+                  <Link to="/createAccount">
+                     <SignIn disabled={email !== '' || password !== ''}>
+                        Sign In
+                     </SignIn>
+                  </Link>
+               )}
             </ButtonContent>
          </GetStartedContent>
       </Container>

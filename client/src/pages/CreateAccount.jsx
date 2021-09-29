@@ -106,7 +106,7 @@ const CrateAccount = () => {
          password: `${password}`,
       };
 
-      const { data } = await api.post('users', body);
+      const { data } = await api.post('createAccount', body);
 
       if (data.email) {
          message.info('Conta criada com sucesso.');

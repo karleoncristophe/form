@@ -15,7 +15,7 @@ app.get('/users', async (req, res) => {
    res.send(name);
 });
 
-app.post('/users', async (req, res) => {
+app.post('/createAccount', async (req, res) => {
    const { name, email, password } = req.body;
 
    try {
@@ -38,35 +38,6 @@ app.post('/users', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-   const { email, password } = req.body;
-
-   console.log(req.body);
-
-   const user = await User.findOne({ email }).select('+password');
-
-   if (!user) {
-      res.status(200).send({
-         error: 'Usuário não cadastrado.',
-      });
-   }
-
-   const match = await bcrypt.compare(password, user.password);
-
-   if (!match) {
-      res.status(200).send({
-         error: 'Senha inválida.',
-      });
-   }
-
-   const token = generateToken({ id: user.id });
-
-   res.status(201).send({
-      token,
-      user,
-   });
-});
-
-app.post('/createAccount', async (req, res) => {
    const { email, password } = req.body;
 
    console.log(req.body);
