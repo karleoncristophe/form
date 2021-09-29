@@ -1,13 +1,21 @@
-import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 import api from '../services/api';
+
 const Container = styled.div`
    display: flex;
+   flex-direction: column;
    width: 100vw;
    height: 100vh;
 `;
 
-const InformatiosContent = styled.div``;
+const InformatiosContent = styled.div`
+   border: 1px solid red;
+   border-left: none;
+   border-right: none;
+   border-top: none;
+`;
 
 const Text = styled.p`
    color: #ffff;
@@ -17,15 +25,22 @@ const Text = styled.p`
 const LogIn = () => {
    const [user, setUser] = useState([]);
 
+   const location = useLocation();
+   // eslint-disable-next-line
+   const dataEmail = location.state.email;
+
    const fetchUsers = async () => {
       const response = await api.get('users');
       const data = await response.data;
+
       console.log(data);
       setUser(data);
    };
 
    useEffect(() => {
       fetchUsers();
+
+      // eslint-disable-next-line
    }, []);
 
    return (

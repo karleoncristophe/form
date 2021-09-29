@@ -1,6 +1,7 @@
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useState } from 'react';
 import api from '../services/api';
 import { message } from 'antd';
 
@@ -97,6 +98,7 @@ const SignIn = styled.button`
 const LogIn = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const history = useHistory();
 
    const clear = () => {
       setEmail('');
@@ -115,7 +117,12 @@ const LogIn = () => {
             message.error(data.error);
          }
 
-         localStorage.setItem('@telegram.token', data.token);
+         history.push({
+            pathname: '/homePage',
+            state: { email: data.email },
+         });
+
+         localStorage.setItem('@form.token', data.token);
       } catch (e) {
          console.log(e);
       }
