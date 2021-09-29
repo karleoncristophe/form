@@ -143,7 +143,12 @@ const LogIn = () => {
             />
             <ButtonContent>
                <Link to="/homePage">
-                  <SignUp onClick={submit}>Sign Up</SignUp>
+                  <SignUp
+                     disabled={email === '' || password === ''}
+                     onClick={submit}
+                  >
+                     Sign Up
+                  </SignUp>
                </Link>
                <Link to="/createAccount">
                   <SignIn disabled={email !== '' || password !== ''}>
