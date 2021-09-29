@@ -146,7 +146,9 @@ const LogIn = () => {
                   <SignUp onClick={submit}>Sign Up</SignUp>
                </Link>
                <Link to="/createAccount">
-                  <SignIn>Sign In</SignIn>
+                  <SignIn disabled={email !== '' || password !== ''}>
+                     Sign In
+                  </SignIn>
                </Link>
             </ButtonContent>
          </GetStartedContent>
