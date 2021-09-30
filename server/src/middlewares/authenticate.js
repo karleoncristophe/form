@@ -16,7 +16,6 @@ const authenticate = (req, res, next) => {
          next(res.status(400).send({ error: 'Acesso negado.' }));
       }
    }
-   next(res.status(200).send({ error: 'Acesso negado.' }));
 };
 
 module.exports = authenticate;

@@ -27,10 +27,10 @@ const LogIn = () => {
 
    const location = useLocation();
    // eslint-disable-next-line
-   const dataEmail = location.state.email;
+   const dataEmail = location.state.token;
 
    const fetchUsers = async () => {
-      const response = await api.get('users');
+      const response = await api.get('clients');
       const data = await response.data;
 
       console.log(data);
