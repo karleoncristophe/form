@@ -67,8 +67,6 @@ app.post('/login', async (req, res) => {
       token,
       user,
    });
-
-   res.status(500).send({ message: 'Login inválido!' });
 });
 
 app.listen(port, () => {
