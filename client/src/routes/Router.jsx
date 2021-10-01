@@ -6,6 +6,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
    background: #2c2c2c;
+   height: 100vh;
+   width: 100vw;
+   overflow: visible;
+   overflow-x: hidden;
 `;
 
 const Router = () => {
