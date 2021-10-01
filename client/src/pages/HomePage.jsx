@@ -29,18 +29,15 @@ const LogIn = () => {
    // eslint-disable-next-line
    const dataEmail = location.state.token;
 
-   const fetchUsers = async () => {
-      const response = await api.get('clients');
-      const data = await response.data;
-
-      console.log(data);
-      setUser(data);
-   };
-
    useEffect(() => {
-      fetchUsers();
+      const getInformations = async () => {
+         const response = await api.get('clients');
+         const data = await response.data;
 
-      // eslint-disable-next-line
+         console.log(data);
+         setUser(data);
+      };
+      getInformations();
    }, []);
 
    return (
