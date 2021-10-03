@@ -119,7 +119,7 @@ const LogIn = () => {
 
          history.push({
             pathname: '/homePage',
-            state: { token: data.token },
+            state: { data: data },
          });
 
          localStorage.setItem('@form.token', data.token);

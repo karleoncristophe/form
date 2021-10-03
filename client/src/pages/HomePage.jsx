@@ -27,7 +27,7 @@ const LogIn = () => {
 
    const location = useLocation();
    // eslint-disable-next-line
-   const dataEmail = location.state.token;
+   const dataEmail = location.state.data;
 
    useEffect(() => {
       const getInformations = async () => {
