@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import api from '../services/api';
 
@@ -24,31 +23,26 @@ const Text = styled.p`
 
 const LogIn = () => {
    const [user, setUser] = useState([]);
-
-   const location = useLocation();
-   // eslint-disable-next-line
-   const dataEmail = location.state.data;
-
    useEffect(() => {
-      const getInformations = async () => {
-         const response = await api.get('clients');
-         const data = await response.data;
-
-         console.log(data);
-         setUser(data);
+      const fetchRepos = async () => {
+         try {
+            const { data } = await api.get('me');
+            setUser(data);
+         } catch (error) {
+            console.log(error);
+         }
       };
-      getInformations();
+      fetchRepos();
+      // eslint-disable-next-line
    }, []);
 
    return (
       <Container>
-         {user?.map((item, index) => (
-            <InformatiosContent key={item.id + index.toString()}>
-               <Text>Id: {item._id}</Text>
-               <Text>Name: {item.name}</Text>
-               <Text>Email: {item.email}</Text>
-            </InformatiosContent>
-         ))}
+         <InformatiosContent>
+            <Text>Id: {user?._id}</Text>
+            <Text>Name: {user?.name}</Text>
+            <Text>Email: {user?.email}</Text>
+         </InformatiosContent>
       </Container>
    );
 };

@@ -17,7 +17,7 @@ app.get('/clients', authorization, async (req, res) => {
    res.send(name);
 });
 
-app.get('/me', authenticate, async (req, res) => {
+app.get('/me', authorization, async (req, res) => {
    const user = await User.findOne({ _id: req.logged });
    res.status(200).send(user);
 });
