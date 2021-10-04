@@ -7,8 +7,10 @@ const authorization = (req, res, next) => {
    const header = req.headers.authorization;
 
    if (header) {
-      const token = header.replace('Bearer ', '');
+      const decoded = jwt.verify(token, APPKEY);
 
+      req.logged = decoded.id;
+      return next();
       try {
          jwt.verify(token, APPKEY);
          return next();
