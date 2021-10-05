@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import api from '../services/api';
@@ -13,7 +12,7 @@ const Container = styled.div`
    height: 100vh;
 `;
 
-const GetStartedContent = styled.div`
+const GetStartedContent = styled.form`
    display: flex;
    font-family: 'Acme', sans-serif;
    padding: 10px;
@@ -98,7 +97,6 @@ const SignIn = styled.button`
 const LogIn = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const history = useHistory();
 
    const clear = () => {
       setEmail('');
@@ -117,16 +115,10 @@ const LogIn = () => {
             message.error(data.error);
          }
 
-         history.push({
-            pathname: '/homePage',
-            state: { data: data.token },
-         });
-
          localStorage.setItem('@form.token', data.token);
       } catch (e) {
          console.log(e);
       }
-
       clear();
    };
 

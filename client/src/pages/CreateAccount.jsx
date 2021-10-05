@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import * as location from '../assets/icons/1055-world-locations.json';
@@ -13,7 +13,7 @@ const Container = styled.div`
    width: 100vw;
    height: 100vh;
 `;
-const CreateAccountContent = styled.div`
+const CreateAccountContent = styled.form`
    display: flex;
    font-family: 'Acme', sans-serif;
    padding: 10px;
@@ -88,7 +88,6 @@ const defaultLocation = {
 };
 
 const CrateAccount = () => {
-   const [dataApi, setDataApi] = useState([]);
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
@@ -97,16 +96,13 @@ const CrateAccount = () => {
    const submit = async () => {
       setLoading(true);
 
-      const newUsers = { name: name, email: email, password: password };
-      setDataApi([...dataApi, newUsers]);
-
       const body = {
          name: `${name}`,
          email: `${email}`,
          password: `${password}`,
       };
 
-      const { data } = await api.post('createAccount', body);
+      const { data } = await api.post('/users', body);
 
       if (data.email) {
          message.info('Conta criada com sucesso.');
@@ -118,19 +114,6 @@ const CrateAccount = () => {
 
       setLoading(false);
    };
-
-   useEffect(() => {
-      const fetchRepos = async () => {
-         try {
-            const { data } = await api.get('users');
-            setDataApi(data);
-         } catch (error) {
-            console.log(error);
-         }
-      };
-      fetchRepos();
-      // eslint-disable-next-line
-   }, []);
 
    return (
       <Container>

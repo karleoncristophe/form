@@ -22,18 +22,15 @@ const Text = styled.p`
 `;
 
 const LogIn = () => {
-   const [user, setUser] = useState([]);
+   const [user, setUser] = useState();
+
    useEffect(() => {
-      const fetchRepos = async () => {
-         try {
-            const { data } = await api.get('me');
-            setUser(data);
-         } catch (error) {
-            console.log(error);
-         }
+      const getInformations = async () => {
+         const { data } = await api.get('me');
+         console.log(data);
+         setUser(data);
       };
-      fetchRepos();
-      // eslint-disable-next-line
+      getInformations();
    }, []);
 
    return (
