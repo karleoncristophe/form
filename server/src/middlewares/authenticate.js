@@ -16,7 +16,7 @@ const authenticate = (req, res, next) => {
 
          return next();
       } catch (e) {
-         next(res.status(401).send({ error: 'Acesso negado.' }));
+         next(res.status(401).send({ error: 'Access denied.' }));
       }
    }
    next();
