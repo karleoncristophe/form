@@ -52,7 +52,7 @@ routes.delete('/deleteUser/:id', async (req, res) => {
 
    await user.remove();
 
-   return res.status(200).send();
+   return res.status(200).send({ message: 'Deleted image.' });
 });
 
 routes.put('/users/:id', authenticate, async (req, res) => {
