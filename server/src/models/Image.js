@@ -2,18 +2,10 @@ const mongoose = require('../libs/Mongoose');
 
 const ImageSchema = new mongoose.Schema(
    {
-      name: {
-         type: String,
-         required: true,
-      },
-      size: {
-         type: Number,
-         required: true,
-      },
-      key: {
-         type: String,
-         required: true,
-      },
+      name: String,
+      size: Number,
+      key: String,
+      url: String,
    },
    {
       timestamps: {
@@ -22,6 +14,12 @@ const ImageSchema = new mongoose.Schema(
       },
    }
 );
+
+ImageSchema.pre('save', function () {
+   if (!this.url) {
+      this.url = `http://localhost:4000/files/${this.key}`;
+   }
+});
 
 const Image = mongoose.model('Image', ImageSchema);
 

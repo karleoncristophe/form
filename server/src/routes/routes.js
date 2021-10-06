@@ -112,13 +112,14 @@ routes.get('/image', async (req, res) => {
 });
 
 routes.post('/postImage', multer(upload).single('file'), async (req, res) => {
-   const { originalname: name, size, filename: key } = req.file;
+   const { originalname: name, size, key, url = '' } = req.file;
 
    try {
       const uploadImage = await Image.create({
          name,
          size,
          key,
+         url,
       });
       res.status(201).send({
          uploadImage,
