@@ -1,42 +1,61 @@
 import styled from 'styled-components';
-import { Upload, Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import api from '../services/api';
+import { message } from 'antd';
 
-const props = {
-   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-   listType: 'picture',
-   beforeUpload(file) {
-      return new Promise(resolve => {
-         const reader = new FileReader();
-         reader.readAsDataURL(file);
-         reader.onload = () => {
-            const img = document.createElement('img');
-            img.src = reader.result;
-            img.onload = () => {
-               const canvas = document.createElement('canvas');
-               canvas.width = img.naturalWidth;
-               canvas.height = img.naturalHeight;
-               const ctx = canvas.getContext('2d');
-               ctx.drawImage(img, 0, 0);
-               ctx.fillStyle = 'red';
-               ctx.textBaseline = 'middle';
-               ctx.font = '33px Arial';
-               ctx.fillText('Ant Design', 20, 20);
-               canvas.toBlob(resolve);
-            };
-         };
-      });
-   },
-};
-
-const Container = styled.div``;
+const Container = styled.div`
+   color: white;
+`;
 
 const ImageUpload = () => {
+   //    const [uploadImage, setUploadImage] = useState('');
+   const [image, setImage] = useState('');
+   const [getImage, setGetImage] = useState();
+
+   const uploadImage = async e => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append('file', image);
+      console.log(image);
+
+      try {
+         const { data } = await api.post('postImage', formData);
+         console.log(data);
+         message.success('Imagem enviada.');
+      } catch (error) {
+         message.error('Imagem não enviada.');
+      }
+   };
+
+   useEffect(() => {
+      const getImage = async () => {
+         const { data } = await api.get('image');
+         setGetImage(data);
+      };
+      getImage();
+   }, []);
+
    return (
       <Container>
-         <Upload {...props}>
-            <Button icon={<UploadOutlined />}>Upload</Button>
-         </Upload>
+         <form
+            onSubmit={uploadImage}
+            style={{ display: 'flex', flexDirection: 'column' }}
+         >
+            <label htmlFor="">Image</label>
+            <input
+               type="file"
+               name="image"
+               onChange={e => setImage(e.target.files[0])}
+            />
+            <button type="submit" style={{ color: 'black' }}>
+               {' '}
+               salvar
+            </button>
+         </form>
+         {getImage?.map((item, index) => (
+            <img src={item.size} alt="" key={item.id + index.toString()} />
+         ))}
       </Container>
    );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import ImageUpload from '../common/ImageUpload';
 import api from '../services/api';
 
 const Container = styled.div`
@@ -27,7 +28,7 @@ const LogIn = () => {
    useEffect(() => {
       const getInformations = async () => {
          const { data } = await api.get('me');
-         console.log(data);
+
          setUser(data);
       };
       getInformations();
@@ -40,6 +41,7 @@ const LogIn = () => {
             <Text>Name: {user?.name}</Text>
             <Text>Email: {user?.email}</Text>
          </InformatiosContent>
+         <ImageUpload />
       </Container>
    );
 };

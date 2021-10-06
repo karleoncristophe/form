@@ -106,12 +106,12 @@ routes.post('/login', async (req, res) => {
    });
 });
 
-routes.get('/imageUpload', async (req, res) => {
+routes.get('/image', async (req, res) => {
    const image = await Image.find().sort({ createdAt: 1 });
    res.send(image);
 });
 
-routes.post('/imagePost', multer(upload).single('file'), async (req, res) => {
+routes.post('/postImage', multer(upload).single('file'), async (req, res) => {
    const { originalname: name, size, filename: key } = req.file;
 
    try {
