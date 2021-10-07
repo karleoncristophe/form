@@ -31,6 +31,7 @@ const ImageUpload = () => {
    useEffect(() => {
       const getImage = async () => {
          const { data } = await api.get('image');
+         console.log(data);
          setGetImage(data);
       };
       getImage();
@@ -49,12 +50,16 @@ const ImageUpload = () => {
                onChange={e => setImage(e.target.files[0])}
             />
             <button type="submit" style={{ color: 'black' }}>
-               {' '}
                salvar
             </button>
          </form>
          {getImage?.map((item, index) => (
-            <img src={item.size} alt="" key={item.id + index.toString()} />
+            <img
+               src={item?.url}
+               alt=""
+               key={item.id + index.toString()}
+               style={{ height: '100px', width: '100px' }}
+            />
          ))}
       </Container>
    );
