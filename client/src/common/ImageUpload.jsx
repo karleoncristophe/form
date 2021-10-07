@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import api from '../services/api';
-import { message } from 'antd';
+import { message, Image } from 'antd';
 
 const Container = styled.div`
    color: white;
@@ -10,6 +10,7 @@ const Container = styled.div`
 const ImageUpload = () => {
    const [image, setImage] = useState('');
    const [getImage, setGetImage] = useState();
+   const [visible, setVisible] = useState(false);
 
    const uploadImage = async e => {
       e.preventDefault();
@@ -42,7 +43,7 @@ const ImageUpload = () => {
             onSubmit={uploadImage}
             style={{ display: 'flex', flexDirection: 'column' }}
          >
-            <label htmlFor="">Image</label>
+            <h1 style={{ color: 'white' }}>Image</h1>
             <input
                type="file"
                name="image"
@@ -53,12 +54,24 @@ const ImageUpload = () => {
             </button>
          </form>
          {getImage?.map((item, index) => (
-            <img
-               src={item?.url}
-               alt=""
-               key={item.id + index.toString()}
-               style={{ height: '200px', width: '200px' }}
-            />
+            <div key={item.id + index.toString()}>
+               <Image
+                  preview={{ visible: false }}
+                  width={400}
+                  src={item?.url}
+                  onClick={() => setVisible(true)}
+               />
+               <div style={{ display: 'none' }}>
+                  <Image.PreviewGroup
+                     preview={{
+                        visible,
+                        onVisibleChange: vis => setVisible(vis),
+                     }}
+                  >
+                     <Image src={item?.url} />
+                  </Image.PreviewGroup>
+               </div>
+            </div>
          ))}
       </Container>
    );

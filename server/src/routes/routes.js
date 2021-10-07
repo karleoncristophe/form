@@ -17,7 +17,7 @@ routes.get('/me', authenticate, async (req, res) => {
    res.status(200).send(user);
 });
 
-routes.post('/users', async (req, res) => {
+routes.post('/createAccount', authenticate, async (req, res) => {
    const { name, email, password } = req.body;
 
    if (await User.findOne({ email })) {
@@ -45,7 +45,7 @@ routes.post('/users', async (req, res) => {
    }
 });
 
-routes.delete('/deleteUser/:id', async (req, res) => {
+routes.delete('/deleteUser/:id', authenticate, async (req, res) => {
    const { id } = req.params;
 
    const user = await User.findById({ _id: id });
@@ -55,7 +55,7 @@ routes.delete('/deleteUser/:id', async (req, res) => {
    return res.status(200).send({ message: 'Deleted image.' });
 });
 
-routes.put('/users/:id', authenticate, async (req, res) => {
+routes.put('/updateUsers/:id', authenticate, async (req, res) => {
    const { id } = req.params;
    const { name } = req.body;
    const objects = { name: name };
@@ -79,7 +79,7 @@ routes.put('/users/:id', authenticate, async (req, res) => {
    }
 });
 
-routes.post('/login', async (req, res) => {
+routes.post('/login', authenticate, async (req, res) => {
    const { email, password } = req.body;
 
    const user = await User.findOne({ email }).select('+password');
@@ -108,30 +108,40 @@ routes.post('/login', async (req, res) => {
 
 routes.get('/image', async (req, res) => {
    const image = await Image.find().sort({ createdAt: 1 });
-   res.send(image);
+   res.status(200).send(image);
 });
 
-routes.post('/postImage', multer(upload).single('file'), async (req, res) => {
-   const { originalname: name, size, key, url = '' } = req.file;
+routes.get('/imageMe', authenticate, async (req, res) => {
+   const image = await User.findOne({ _id: req.logged });
+   res.status(200).send(image);
+});
 
-   try {
-      const uploadImage = await Image.create({
-         name,
-         size,
-         key,
-         url,
-      });
-      res.status(201).send({
-         uploadImage,
-      });
-   } catch (error) {
-      res.status(400).send({
-         error: 'Image was not posted.',
-      });
+routes.post(
+   '/postImage',
+   authenticate,
+   multer(upload).single('file'),
+   async (req, res) => {
+      const { originalname: name, size, key, url = '' } = req.file;
+
+      try {
+         const image = await Image.create({
+            name,
+            size,
+            key,
+            url,
+         });
+         res.status(201).send({
+            image,
+         });
+      } catch (error) {
+         res.status(400).send({
+            error: 'Image was not posted.',
+         });
+      }
    }
-});
+);
 
-routes.delete('/imageDelete/:id', async (req, res) => {
+routes.delete('/imageDelete/:id', authenticate, async (req, res) => {
    const { id } = req.params;
 
    const image = await Image.findById({ _id: id });
