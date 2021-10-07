@@ -8,7 +8,6 @@ const Container = styled.div`
 `;
 
 const ImageUpload = () => {
-   //    const [uploadImage, setUploadImage] = useState('');
    const [image, setImage] = useState('');
    const [getImage, setGetImage] = useState();
 
@@ -58,7 +57,7 @@ const ImageUpload = () => {
                src={item?.url}
                alt=""
                key={item.id + index.toString()}
-               style={{ height: '100px', width: '100px' }}
+               style={{ height: '200px', width: '200px' }}
             />
          ))}
       </Container>
