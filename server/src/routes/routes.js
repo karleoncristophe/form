@@ -111,7 +111,7 @@ routes.get('/image', async (req, res) => {
    res.status(200).send(image);
 });
 
-routes.get('/imageMe', authenticate, async (req, res) => {
+routes.get('/imageMe', async (req, res) => {
    const image = await User.findOne({ _id: req.logged });
    res.status(200).send(image);
 });
@@ -140,6 +140,30 @@ routes.post(
       }
    }
 );
+
+routes.put('/updateImage/:id', authenticate, async (req, res) => {
+   const { id } = req.params;
+   const { key } = req.body;
+   const objects = { key: key };
+
+   try {
+      const updateData = await Image.findOneAndUpdate(
+         {
+            _id: id,
+         },
+         objects,
+         { new: true }
+      );
+
+      res.status(200).send(updateData);
+
+      console.log(updateData);
+   } catch (error) {
+      res.status(403).send({
+         error: 'Error while updating.',
+      });
+   }
+});
 
 routes.delete('/imageDelete/:id', authenticate, async (req, res) => {
    const { id } = req.params;
