@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const ImageUpload = () => {
    const [image, setImage] = useState('');
-   const [getImage, setGetImage] = useState();
+   const [getImage, setGetImage] = useState([]);
    const [visible, setVisible] = useState(false);
 
    const uploadImage = async e => {
