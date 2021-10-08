@@ -165,7 +165,7 @@ routes.put('/updateImage/:id', authenticate, async (req, res) => {
    }
 });
 
-routes.delete('/imageDelete/:id', authenticate, async (req, res) => {
+routes.delete('/deleteImage/:id', authenticate, async (req, res) => {
    const { id } = req.params;
 
    const image = await Image.findById({ _id: id });
