@@ -2,14 +2,24 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import api from '../services/api';
-import { message } from 'antd';
+import { Checkbox, message } from 'antd';
 
-const Container = styled.div`
+const Conteiner = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
    width: 100vw;
    height: 100vh;
+`;
+
+const SignInContent = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 600px;
+   height: 700px;
+   border-radius: 15px;
+   background: white;
 `;
 
 const GetStartedContent = styled.form`
@@ -22,16 +32,22 @@ const GetStartedContent = styled.form`
    border-radius: 10px;
 `;
 
-const Title = styled.h1`
-   font-size: 3em;
+const Title = styled.span`
+   font-size: 2.8rem;
 
    font-weight: 400;
-   color: #ff3535;
 `;
 
 const SubTitle = styled.span`
+   font-size: 1rem;
+   margin-bottom: 20px;
+   font-weight: 400;
+   color: #302f2f;
+`;
+
+const TextInput = styled.span`
    font-size: 1.2rem;
-   color: #ffff;
+   color: #5a5858;
 `;
 
 const Input = styled.input`
@@ -39,59 +55,89 @@ const Input = styled.input`
    margin-bottom: 10px;
    height: 50px;
    width: 100%;
-   border-radius: 5px;
-   border: 1px solid #d4d4d4;
+   /* border-radius: 5px; */
    font-size: 1rem;
    padding: 10px;
    outline: none;
-
-   &&:hover {
-      border: 1px solid #ff2a2a;
-   }
-
-   &&:focus {
-      border: 2px solid #ff2a2a;
-   }
-`;
-
-const ButtonContent = styled.div`
-   margin-top: 40px;
-
-   display: flex;
-   justify-content: center;
-`;
-
-const SignUp = styled.button`
-   border: none;
-   margin-right: 20px;
-   height: 65px;
-   width: 200px;
-   border-radius: 15px;
-   background: #ff2a2a;
-   font-size: 1.2rem;
-   color: #ffff;
-
-   &&:hover {
-      background: #ffffff;
-      transition: 1s;
-      color: #ff2a2a;
-   }
+   background: none;
+   border: 1.5px solid#ffa500;
+   border-top: none;
+   border-right: none;
+   border-left: none;
 `;
 
 const SignIn = styled.button`
    border: none;
-   height: 65px;
-   width: 200px;
+   height: 55px;
+   width: 100%;
    border-radius: 15px;
-   background: #fdfdfd;
+   margin-top: 30px;
+   background: #ffa500;
    font-size: 1.2rem;
-   color: #e43131;
+   box-shadow: 0px 5px 5px -1px gray;
+   color: #ffff;
 
    &&:hover {
-      background: #ff2a2a;
       transition: 1s;
+      transform: translateY(-3px);
+      background: #bb7e0c;
+   }
+`;
+
+const SignUp = styled.button`
+   border: none;
+   height: 55px;
+   width: 100%;
+   border-radius: 15px;
+   margin-top: 20px;
+   background: #ffffff;
+   font-size: 1.2rem;
+   color: #ffa500;
+
+   &&:hover {
+      background: #ffa500;
+      transform: translateY(-3px);
+      transition: 1s;
+      box-shadow: 0px 5px 5px -1px gray;
       color: #ffffff;
    }
+`;
+
+const CheckContent = styled.div`
+   display: flex;
+   justify-content: space-between;
+   margin-top: 10px;
+`;
+
+const CheckboxInput = styled(Checkbox)`
+   font-size: 1rem;
+`;
+
+const Span = styled.span`
+   font-size: 1rem;
+   color: #ffa500;
+`;
+
+const CreateAccountContent = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   margin-top: 20px;
+`;
+
+const CreateAccount = styled.span`
+   font-size: 1rem;
+   font-family: Arial, Helvetica, sans-serif;
+   padding: 0px 13px 0px 13px;
+   color: #5a5858;
+`;
+
+const Line = styled.div`
+   display: flex;
+   width: 30%;
+   height: 1px;
+   background: #d3cdcd;
 `;
 
 const LogIn = () => {
@@ -102,7 +148,9 @@ const LogIn = () => {
       setEmail('');
       setPassword('');
    };
-
+   const onChange = e => {
+      console.log(`checked = ${e.target.checked}`);
+   };
    const submit = async () => {
       const body = {
          email,
@@ -123,44 +171,55 @@ const LogIn = () => {
    };
 
    return (
-      <Container>
-         <GetStartedContent>
-            <Title>Get Started </Title>
+      <Conteiner>
+         <SignInContent>
+            <GetStartedContent>
+               <Title>Sign In</Title>
+               <SubTitle>Welcome, we missed you!</SubTitle>
+               <TextInput>Your Email</TextInput>
+               <Input
+                  autoFocus
+                  placeholder="Enter you "
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+               />
+               <TextInput>Password</TextInput>
+               <Input
+                  type="password"
+                  placeholder="Enter you password."
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+               />
+               <CheckContent>
+                  <CheckboxInput onChange={onChange}>
+                     {' '}
+                     Remember me
+                  </CheckboxInput>
+                  <Span>Forgot Password?</Span>
+               </CheckContent>
 
-            <SubTitle>Email</SubTitle>
-            <Input
-               placeholder="Email"
-               value={email}
-               onChange={e => setEmail(e.target.value)}
-            />
-            <SubTitle>Password</SubTitle>
-            <Input
-               type="password"
-               placeholder="Password"
-               value={password}
-               onChange={e => setPassword(e.target.value)}
-            />
-            <ButtonContent>
                <Link to="/homePage">
-                  <SignUp
+                  <SignIn
                      disabled={email === '' || password === ''}
                      onClick={submit}
                   >
+                     Sign In
+                  </SignIn>
+               </Link>
+
+               <CreateAccountContent>
+                  <Line />
+                  <CreateAccount>or create account</CreateAccount>
+                  <Line />
+               </CreateAccountContent>
+               <Link to="/createAccount">
+                  <SignUp disabled={email !== '' || password !== ''}>
                      Sign Up
                   </SignUp>
                </Link>
-               {email || password !== '' ? (
-                  ''
-               ) : (
-                  <Link to="/createAccount">
-                     <SignIn disabled={email !== '' || password !== ''}>
-                        Sign In
-                     </SignIn>
-                  </Link>
-               )}
-            </ButtonContent>
-         </GetStartedContent>
-      </Container>
+            </GetStartedContent>
+         </SignInContent>
+      </Conteiner>
    );
 };
 
