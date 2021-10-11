@@ -10,6 +10,8 @@ const Conteiner = styled.div`
    justify-content: center;
    width: 100vw;
    height: 100vh;
+   background: #bdbdbd;
+   background-size: cover;
 `;
 
 const SignInContent = styled.div`
@@ -20,6 +22,7 @@ const SignInContent = styled.div`
    height: 700px;
    border-radius: 15px;
    background: white;
+   box-shadow: 10px 5px 5px -1px gray;
 `;
 
 const GetStartedContent = styled.form`
@@ -137,7 +140,7 @@ const Line = styled.div`
    display: flex;
    width: 30%;
    height: 1px;
-   background: #d3cdcd;
+   background: #bebaba;
 `;
 
 const LogIn = () => {
