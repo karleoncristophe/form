@@ -10,7 +10,7 @@ const Conteiner = styled.div`
    justify-content: center;
    width: 100vw;
    height: 100vh;
-   background: #bdbdbd;
+   background: #e0e0e0;
    background-size: cover;
 `;
 
