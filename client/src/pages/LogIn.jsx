@@ -227,3 +227,50 @@ const LogIn = () => {
 };
 
 export default LogIn;
+
+//text effect
+// const Title = styled.div`
+//    ul li {
+//       list-style: none;
+//    }
+
+//    ul li a {
+//       position: relative;
+//       display: block;
+//       color: transparent;
+//       -webkit-text-stroke: 1px #fff;
+//       font-size: 2.3rem;
+//       font-weight: 900;
+//       text-decoration: none;
+//       line-height: none;
+//    }
+
+//    ul li a:hover {
+//       color: #fff;
+//       -webkit-text-stroke: 1px #030303;
+//       transition: 0.5s;
+//    }
+
+//    ul li a:before,
+//    ul li a:after {
+//       content: attr(data-text);
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       transition: 0.5s;
+//    }
+
+//    ul li a:hover:before {
+//       color: red;
+//       z-index: 1;
+//       -webkit-text-stroke: 1px #030303;
+//       transform: translate(10px, -10px);
+//    }
+
+//    ul li a:hover:after {
+//       color: #ffa500;
+//       z-index: 2;
+//       -webkit-text-stroke: 1px #030303;
+//       transform: translate(20px, -20px);
+//    }
+// `;
