@@ -142,7 +142,7 @@ const CrateAccount = () => {
             ) : (
                <CreateAccountContent>
                   <Title>Create Account </Title>
-                  <SubTitle>Welcome, we missed you!</SubTitle>
+                  <SubTitle>Welcome!</SubTitle>
                   <TextInput>Name</TextInput>
                   <Input
                      autoFocus
