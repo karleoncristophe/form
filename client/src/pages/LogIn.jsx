@@ -190,7 +190,7 @@ const LogIn = () => {
                <TextInput>Your Email</TextInput>
                <Input
                   autoFocus
-                  placeholder="Enter you "
+                  placeholder="Enter you email. "
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                />

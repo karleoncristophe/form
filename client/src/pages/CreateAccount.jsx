@@ -146,20 +146,20 @@ const CrateAccount = () => {
                   <TextInput>Name</TextInput>
                   <Input
                      autoFocus
-                     placeholder="Type a Name"
+                     placeholder="Type a name."
                      value={name}
                      onChange={e => setName(e.target.value)}
                   />
                   <TextInput>Email</TextInput>
                   <Input
-                     placeholder="Type a Email"
+                     placeholder="Type a email."
                      value={email}
                      onChange={e => setEmail(e.target.value)}
                   />
                   <TextInput>Password</TextInput>
                   <Input
                      type="password"
-                     placeholder="Type a Password"
+                     placeholder="Type a password."
                      value={password}
                      onChange={e => setPassword(e.target.value)}
                   />
