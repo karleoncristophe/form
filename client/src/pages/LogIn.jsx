@@ -37,7 +37,6 @@ const GetStartedContent = styled.form`
 
 const Title = styled.span`
    font-size: 2.8rem;
-
    font-weight: 400;
 `;
 
@@ -58,7 +57,6 @@ const Input = styled.input`
    margin-bottom: 10px;
    height: 50px;
    width: 100%;
-   /* border-radius: 5px; */
    font-size: 1rem;
    padding: 10px;
    outline: none;
@@ -67,6 +65,16 @@ const Input = styled.input`
    border-top: none;
    border-right: none;
    border-left: none;
+
+   &&:focus {
+      border: 2px solid#ffa500;
+      border-radius: 10px;
+   }
+
+   &&:hover {
+      border: 2px solid#ffa500;
+      border-radius: 10px;
+   }
 `;
 
 const SignIn = styled.button`

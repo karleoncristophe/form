@@ -12,7 +12,21 @@ const Container = styled.div`
    justify-content: center;
    width: 100vw;
    height: 100vh;
+   background: #e0e0e0;
+   background-size: cover;
 `;
+
+const SignInContent = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 600px;
+   height: 600px;
+   border-radius: 15px;
+   background: white;
+   box-shadow: 10px 5px 5px -1px gray;
+`;
+
 const CreateAccountContent = styled.form`
    display: flex;
    font-family: 'Acme', sans-serif;
@@ -23,15 +37,21 @@ const CreateAccountContent = styled.form`
    border-radius: 10px;
 `;
 
-const Title = styled.h1`
-   font-size: 3em;
+const Title = styled.span`
+   font-size: 2.8rem;
    font-weight: 400;
-   color: red;
 `;
 
 const SubTitle = styled.span`
+   font-size: 1rem;
+   margin-bottom: 20px;
+   font-weight: 400;
+   color: #302f2f;
+`;
+
+const TextInput = styled.span`
    font-size: 1.2rem;
-   color: #ffffff;
+   color: #5a5858;
 `;
 
 const Input = styled.input`
@@ -39,42 +59,41 @@ const Input = styled.input`
    margin-bottom: 10px;
    height: 50px;
    width: 100%;
-   border-radius: 5px;
-   border: 1px solid #d4d4d4;
    font-size: 1rem;
    padding: 10px;
    outline: none;
-
-   &&:hover {
-      border: 1px solid #ff2a2a;
-   }
+   background: none;
+   border: 1.5px solid#ffa500;
+   border-top: none;
+   border-right: none;
+   border-left: none;
 
    &&:focus {
-      border: 2px solid #ff2a2a;
+      border: 2px solid#ffa500;
+      border-radius: 10px;
    }
-`;
 
-const ButtonContent = styled.div`
-   margin-top: 40px;
-
-   display: flex;
-   justify-content: center;
+   &&:hover {
+      border: 2px solid#ffa500;
+      border-radius: 10px;
+   }
 `;
 
 const GoToHome = styled.button`
    border: none;
-   margin-right: 20px;
-   height: 65px;
-   width: 200px;
+   height: 55px;
+   width: 100%;
    border-radius: 15px;
-   background: #ffffff;
+   margin-top: 30px;
+   background: #ffa500;
    font-size: 1.2rem;
-   color: #ff2a2a;
+   box-shadow: 0px 5px 5px -1px gray;
+   color: #ffff;
 
    &&:hover {
-      background: #ff2a2a;
       transition: 1s;
-      color: #ffffff;
+      transform: translateY(-3px);
+      background: #bb7e0c;
    }
 `;
 
@@ -117,37 +136,40 @@ const CrateAccount = () => {
 
    return (
       <Container>
-         {loading ? (
-            <Lottie options={defaultLocation} height={200} width={200} />
-         ) : (
-            <CreateAccountContent>
-               <Title>Create Account </Title>
-               <SubTitle>Name</SubTitle>
-               <Input
-                  placeholder="Name"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-               />
-               <SubTitle>Email</SubTitle>
-               <Input
-                  placeholder="Email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-               />
-               <SubTitle>Password</SubTitle>
-               <Input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-               />
-               <ButtonContent>
+         <SignInContent>
+            {loading ? (
+               <Lottie options={defaultLocation} height={200} width={200} />
+            ) : (
+               <CreateAccountContent>
+                  <Title>Create Account </Title>
+                  <SubTitle>Welcome, we missed you!</SubTitle>
+                  <TextInput>Name</TextInput>
+                  <Input
+                     autoFocus
+                     placeholder="Type a Name"
+                     value={name}
+                     onChange={e => setName(e.target.value)}
+                  />
+                  <TextInput>Email</TextInput>
+                  <Input
+                     placeholder="Type a Email"
+                     value={email}
+                     onChange={e => setEmail(e.target.value)}
+                  />
+                  <TextInput>Password</TextInput>
+                  <Input
+                     type="password"
+                     placeholder="Type a Password"
+                     value={password}
+                     onChange={e => setPassword(e.target.value)}
+                  />
+
                   <Link to="/">
                      <GoToHome onClick={submit}>Create Account</GoToHome>
                   </Link>
-               </ButtonContent>
-            </CreateAccountContent>
-         )}
+               </CreateAccountContent>
+            )}
+         </SignInContent>
       </Container>
    );
 };
