@@ -126,9 +126,15 @@ const CheckboxInput = styled(Checkbox)`
    font-size: 1rem;
 `;
 
-const Span = styled.span`
+const ForgotPassword = styled.span`
    font-size: 1rem;
    color: #ffa500;
+   text-decoration: underline;
+   cursor: pointer;
+
+   &&:hover {
+      color: #d68d06;
+   }
 `;
 
 const CreateAccountContent = styled.div`
@@ -207,7 +213,7 @@ const LogIn = () => {
                />
                <CheckboxContent>
                   <CheckboxInput onChange={onChange}>Remember me</CheckboxInput>
-                  <Span>Forgot Password?</Span>
+                  <ForgotPassword>Forgot Password?</ForgotPassword>
                </CheckboxContent>
 
                <Link to="/homePage">
