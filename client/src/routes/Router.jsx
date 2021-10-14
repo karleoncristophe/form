@@ -3,6 +3,7 @@ import CreateAccount from '../pages/CreateAccount';
 import LogIn from '../pages/LogIn';
 import HomePage from '../pages/HomePage';
 import styled from 'styled-components';
+import RecoverPassword from '../pages/RecoverPassword';
 
 const Container = styled.div`
    background: #e0e0e0;
@@ -25,6 +26,10 @@ const Router = () => {
 
          <Route path="/homePage">
             <HomePage />
+         </Route>
+
+         <Route path="/recoverPassword">
+            <RecoverPassword />
          </Route>
       </Container>
    );

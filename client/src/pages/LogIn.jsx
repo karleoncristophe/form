@@ -213,7 +213,9 @@ const LogIn = () => {
                />
                <CheckboxContent>
                   <CheckboxInput onChange={onChange}>Remember me</CheckboxInput>
-                  <ForgotPassword>Forgot Password?</ForgotPassword>
+                  <Link to="recoverPassword">
+                     <ForgotPassword>Forgot Password?</ForgotPassword>
+                  </Link>
                </CheckboxContent>
 
                <Link to="/homePage">
