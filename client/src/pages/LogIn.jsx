@@ -11,6 +11,7 @@ const Conteiner = styled.div`
    width: 100vw;
    height: 100vh;
    background-size: cover;
+   font-family: 'Inter', sans-serif;
 `;
 
 const SignInContent = styled.div`
@@ -26,7 +27,6 @@ const SignInContent = styled.div`
 
 const GetStartedContent = styled.form`
    display: flex;
-   font-family: 'Acme', sans-serif;
    padding: 10px;
    flex-direction: column;
    background: #faebeb16;
@@ -34,20 +34,22 @@ const GetStartedContent = styled.form`
    border-radius: 10px;
 `;
 
-const Title = styled.span`
-   font-size: 2.8rem;
-   font-weight: 400;
+const Title = styled.h1`
+   line-height: 25px;
+   font-size: 2.7rem;
+   font-weight: 600;
 `;
 
 const SubTitle = styled.span`
    font-size: 1rem;
    margin-bottom: 20px;
-   font-weight: 400;
+   font-weight: 500;
    color: #302f2f;
 `;
 
-const TextInput = styled.span`
+const InputText = styled.span`
    font-size: 1.2rem;
+   font-weight: 400;
    color: #5a5858;
 `;
 
@@ -114,7 +116,7 @@ const SignUp = styled.button`
    }
 `;
 
-const CheckContent = styled.div`
+const CheckboxContent = styled.div`
    display: flex;
    justify-content: space-between;
    margin-top: 10px;
@@ -187,14 +189,14 @@ const LogIn = () => {
             <GetStartedContent>
                <Title>Sign In</Title>
                <SubTitle>Welcome, we missed you!</SubTitle>
-               <TextInput>Your Email</TextInput>
+               <InputText>Your Email</InputText>
                <Input
                   autoFocus
                   placeholder="Enter you email. "
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                />
-               <TextInput>Password</TextInput>
+               <InputText>Password</InputText>
                <Input
                   type="password"
                   name="password"
@@ -203,13 +205,10 @@ const LogIn = () => {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                />
-               <CheckContent>
-                  <CheckboxInput onChange={onChange}>
-                     {' '}
-                     Remember me
-                  </CheckboxInput>
+               <CheckboxContent>
+                  <CheckboxInput onChange={onChange}>Remember me</CheckboxInput>
                   <Span>Forgot Password?</Span>
-               </CheckContent>
+               </CheckboxContent>
 
                <Link to="/homePage">
                   <SignIn
@@ -222,7 +221,7 @@ const LogIn = () => {
 
                <CreateAccountContent>
                   <Line />
-                  <CreateAccount>or create account</CreateAccount>
+                  <CreateAccount>or create an account</CreateAccount>
                   <Line />
                </CreateAccountContent>
                <Link to="/createAccount">

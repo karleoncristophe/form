@@ -10,6 +10,7 @@ const Container = styled.div`
    width: 100vw;
    overflow: visible;
    overflow-x: hidden;
+   font-family: 'Inter', sans-serif;
 `;
 
 const Router = () => {

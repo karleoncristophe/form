@@ -13,6 +13,7 @@ const Container = styled.div`
    width: 100vw;
    height: 100vh;
    background-size: cover;
+   font-family: 'Inter', sans-serif;
 `;
 
 const SignUpContent = styled.div`
@@ -35,20 +36,22 @@ const CreateAccountContent = styled.form`
    border-radius: 10px;
 `;
 
-const Title = styled.span`
-   font-size: 2.8rem;
-   font-weight: 400;
+const Title = styled.h1`
+   line-height: 20px;
+   font-size: 2.7rem;
+   font-weight: 600;
 `;
 
 const SubTitle = styled.span`
-   font-size: 1rem;
+   font-size: 1.2rem;
    margin-bottom: 20px;
-   font-weight: 400;
+   font-weight: 500;
    color: #302f2f;
 `;
 
-const TextInput = styled.span`
+const InputText = styled.span`
    font-size: 1.2rem;
+   font-weight: 400;
    color: #5a5858;
 `;
 
@@ -140,22 +143,22 @@ const CrateAccount = () => {
                <Lottie options={defaultLocation} height={200} width={200} />
             ) : (
                <CreateAccountContent>
-                  <Title>Create Account </Title>
-                  <SubTitle>Welcome!</SubTitle>
-                  <TextInput>Name</TextInput>
+                  <Title>Sing Up</Title>
+                  <SubTitle>Create an account and enjoy!</SubTitle>
+                  <InputText>Name</InputText>
                   <Input
                      autoFocus
                      placeholder="Type a name."
                      value={name}
                      onChange={e => setName(e.target.value)}
                   />
-                  <TextInput>Email</TextInput>
+                  <InputText>Email</InputText>
                   <Input
                      placeholder="Type a email."
                      value={email}
                      onChange={e => setEmail(e.target.value)}
                   />
-                  <TextInput>Password</TextInput>
+                  <InputText>Password</InputText>
                   <Input
                      name="password"
                      autoComplete="on"
@@ -166,7 +169,7 @@ const CrateAccount = () => {
                   />
 
                   <Link to="/">
-                     <GoToHome onClick={submit}>Create Account</GoToHome>
+                     <GoToHome onClick={submit}>Create an Account</GoToHome>
                   </Link>
                </CreateAccountContent>
             )}
