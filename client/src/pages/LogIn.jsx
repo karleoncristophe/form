@@ -10,7 +10,6 @@ const Conteiner = styled.div`
    justify-content: center;
    width: 100vw;
    height: 100vh;
-   background: #e0e0e0;
    background-size: cover;
 `;
 
@@ -20,9 +19,9 @@ const SignInContent = styled.div`
    justify-content: center;
    width: 600px;
    height: 700px;
-   border-radius: 15px;
-   background: white;
-   box-shadow: 10px 5px 5px -1px gray;
+   border-radius: 12px;
+   background: #ffffff;
+   box-shadow: 0 0 1.2em #b4b4b4;
 `;
 
 const GetStartedContent = styled.form`
@@ -81,17 +80,18 @@ const SignIn = styled.button`
    border: none;
    height: 55px;
    width: 100%;
-   border-radius: 15px;
+   border-radius: 10px;
    margin-top: 30px;
-   background: #ffa500;
+   background: #e0e0e0;
    font-size: 1.2rem;
-   box-shadow: 0px 5px 5px -1px gray;
-   color: #ffff;
+   color: #ffa908;
 
    &&:hover {
       transition: 1s;
       transform: translateY(-3px);
-      background: #bb7e0c;
+      color: #ffffff;
+      box-shadow: 0 0 1em #b6b6b6;
+      background: #ffa908;
    }
 `;
 
@@ -101,15 +101,15 @@ const SignUp = styled.button`
    width: 100%;
    border-radius: 15px;
    margin-top: 20px;
-   background: #ffffff;
+   background: #ffa908;
+   box-shadow: 0 0 1em #9c9c9c;
    font-size: 1.2rem;
-   color: #ffa500;
+   color: #ffffff;
 
    &&:hover {
-      background: #ffa500;
+      background: #dd9510;
       transform: translateY(-3px);
       transition: 1s;
-      box-shadow: 0px 5px 5px -1px gray;
       color: #ffffff;
    }
 `;
@@ -197,6 +197,8 @@ const LogIn = () => {
                <TextInput>Password</TextInput>
                <Input
                   type="password"
+                  name="password"
+                  autoComplete="on"
                   placeholder="Enter you password."
                   value={password}
                   onChange={e => setPassword(e.target.value)}

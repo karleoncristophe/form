@@ -5,7 +5,7 @@ import HomePage from '../pages/HomePage';
 import styled from 'styled-components';
 
 const Container = styled.div`
-   background: #2c2c2c;
+   background: #e0e0e0;
    height: 100vh;
    width: 100vw;
    overflow: visible;

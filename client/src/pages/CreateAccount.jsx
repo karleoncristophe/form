@@ -12,19 +12,18 @@ const Container = styled.div`
    justify-content: center;
    width: 100vw;
    height: 100vh;
-   background: #e0e0e0;
    background-size: cover;
 `;
 
-const SignInContent = styled.div`
+const SignUpContent = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
    width: 600px;
    height: 600px;
-   border-radius: 15px;
-   background: white;
-   box-shadow: 10px 5px 5px -1px gray;
+   border-radius: 12px;
+   background: #ffffff;
+   box-shadow: 0 0 1.2em #b4b4b4;
 `;
 
 const CreateAccountContent = styled.form`
@@ -32,7 +31,6 @@ const CreateAccountContent = styled.form`
    font-family: 'Acme', sans-serif;
    padding: 10px;
    flex-direction: column;
-   background: #faebeb16;
    width: 500px;
    border-radius: 10px;
 `;
@@ -81,19 +79,20 @@ const Input = styled.input`
 
 const GoToHome = styled.button`
    border: none;
+   border: none;
    height: 55px;
    width: 100%;
    border-radius: 15px;
-   margin-top: 30px;
-   background: #ffa500;
+   margin-top: 20px;
+   background: #ffa908;
    font-size: 1.2rem;
-   box-shadow: 0px 5px 5px -1px gray;
-   color: #ffff;
-
+   color: #ffffff;
+   box-shadow: 0 0 1em #9c9c9c;
    &&:hover {
-      transition: 1s;
+      background: #dd9510;
       transform: translateY(-3px);
-      background: #bb7e0c;
+      transition: 1s;
+      color: #ffffff;
    }
 `;
 
@@ -136,7 +135,7 @@ const CrateAccount = () => {
 
    return (
       <Container>
-         <SignInContent>
+         <SignUpContent>
             {loading ? (
                <Lottie options={defaultLocation} height={200} width={200} />
             ) : (
@@ -158,6 +157,8 @@ const CrateAccount = () => {
                   />
                   <TextInput>Password</TextInput>
                   <Input
+                     name="password"
+                     autoComplete="on"
                      type="password"
                      placeholder="Type a password."
                      value={password}
@@ -169,7 +170,7 @@ const CrateAccount = () => {
                   </Link>
                </CreateAccountContent>
             )}
-         </SignInContent>
+         </SignUpContent>
       </Container>
    );
 };
