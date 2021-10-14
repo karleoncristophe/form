@@ -16,7 +16,7 @@ const Container = styled.div`
    font-family: 'Inter', sans-serif;
 `;
 
-const SignUpContent = styled.div`
+const AccountReoveryContent = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
@@ -27,7 +27,7 @@ const SignUpContent = styled.div`
    box-shadow: 0 0 1.2em #b4b4b4;
 `;
 
-const CreateAccountContent = styled.form`
+const AccountReoveryForm = styled.form`
    display: flex;
    font-family: 'Acme', sans-serif;
    padding: 10px;
@@ -114,44 +114,24 @@ const RecoverPassword = () => {
    const [password, setPassword] = useState('');
    const [loading, setLoading] = useState(false);
 
-   const submit = async () => {
-      setLoading(true);
-
-      const body = {
-         name: `${name}`,
-         email: `${email}`,
-         password: `${password}`,
-      };
-
-      const { data } = await api.post('/createAccount', body);
-
-      if (data.email) {
-         message.info('Conta criada com sucesso.');
-      }
-
-      if (!data.email) {
-         message.error(data.error);
-      }
-
-      setLoading(false);
-   };
+   const submit = async () => {};
 
    return (
       <Container>
-         <SignUpContent>
+         <AccountReoveryContent>
             {loading ? (
                <Lottie options={defaultLocation} height={200} width={200} />
             ) : (
-               <CreateAccountContent>
+               <AccountReoveryForm>
                   <Title>Account recovery</Title>
                   <SubTitle>User email</SubTitle>
 
                   <Link to="/">
                      <GoToHome onClick={submit}>Confirm</GoToHome>
                   </Link>
-               </CreateAccountContent>
+               </AccountReoveryForm>
             )}
-         </SignUpContent>
+         </AccountReoveryContent>
       </Container>
    );
 };
