@@ -1,4 +1,3 @@
-const { isValidObjectId } = require('mongoose');
 const mongoose = require('../libs/Mongoose');
 
 const UserSchema = new mongoose.Schema(

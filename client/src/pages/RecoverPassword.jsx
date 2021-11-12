@@ -3,50 +3,51 @@ import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import * as location from '../assets/icons/1055-world-locations.json';
 import styled from 'styled-components';
-import api from '../services/api';
-import { message } from 'antd';
+// import api from '../services/api';
+// import { message } from 'antd';
 
 const Container = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100vw;
-   height: 100vh;
-   background-size: cover;
-   font-family: 'Inter', sans-serif;
+  display: flex;
+  background: #e0e0e0;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  font-family: 'Inter', sans-serif;
 `;
 
 const AccountReoveryContent = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 600px;
-   height: 600px;
-   border-radius: 12px;
-   background: #ffffff;
-   box-shadow: 0 0 1.2em #b4b4b4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 600px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 0 1.2em #b4b4b4;
 `;
 
 const AccountReoveryForm = styled.form`
-   display: flex;
-   font-family: 'Acme', sans-serif;
-   padding: 10px;
-   flex-direction: column;
-   width: 500px;
-   border-radius: 10px;
+  display: flex;
+  font-family: 'Acme', sans-serif;
+  padding: 10px;
+  flex-direction: column;
+  width: 500px;
+  border-radius: 10px;
 `;
 
 const Title = styled.h1`
-   line-height: 20px;
-   font-size: 2.7rem;
-   font-weight: 600;
+  line-height: 20px;
+  font-size: 2.7rem;
+  font-weight: 600;
 `;
 
 const SubTitle = styled.span`
-   font-size: 1.2rem;
-   margin-bottom: 20px;
-   font-weight: 500;
-   color: #302f2f;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #302f2f;
 `;
 
 // const InputText = styled.span`
@@ -81,59 +82,60 @@ const SubTitle = styled.span`
 // `;
 
 const GoToHome = styled.button`
-   border: none;
-   border: none;
-   height: 55px;
-   width: 100%;
-   border-radius: 15px;
-   margin-top: 20px;
-   background: #ffa908;
-   font-size: 1.2rem;
-   color: #ffffff;
-   box-shadow: 0 0 1em #9c9c9c;
-   &&:hover {
-      background: #dd9510;
-      transform: translateY(-3px);
-      transition: 1s;
-      color: #ffffff;
-   }
+  border: none;
+  border: none;
+  height: 55px;
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 20px;
+  background: #ffa908;
+  font-size: 1.2rem;
+  color: #ffffff;
+  box-shadow: 0 0 1em #9c9c9c;
+  &&:hover {
+    background: #dd9510;
+    transform: translateY(-3px);
+    transition: 1s;
+    color: #ffffff;
+  }
 `;
 
 const defaultLocation = {
-   loop: true,
-   autoplay: true,
-   animationData: location.default,
-   rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-   },
+  loop: true,
+  autoplay: true,
+  animationData: location.default,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
 };
 
 const RecoverPassword = () => {
-   const [name, setName] = useState('');
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [loading, setLoading] = useState(false);
+  // const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // eslint-disable-next-line
+  const [loading, setLoading] = useState(false);
 
-   const submit = async () => {};
+  const submit = async () => {};
 
-   return (
-      <Container>
-         <AccountReoveryContent>
-            {loading ? (
-               <Lottie options={defaultLocation} height={200} width={200} />
-            ) : (
-               <AccountReoveryForm>
-                  <Title>Account recovery</Title>
-                  <SubTitle>User email</SubTitle>
+  return (
+    <Container>
+      <AccountReoveryContent>
+        {loading ? (
+          <Lottie options={defaultLocation} height={200} width={200} />
+        ) : (
+          <AccountReoveryForm>
+            <Title>Account recovery</Title>
+            <SubTitle>User email</SubTitle>
 
-                  <Link to="/">
-                     <GoToHome onClick={submit}>Confirm</GoToHome>
-                  </Link>
-               </AccountReoveryForm>
-            )}
-         </AccountReoveryContent>
-      </Container>
-   );
+            <Link to="/">
+              <GoToHome onClick={submit}>Confirm</GoToHome>
+            </Link>
+          </AccountReoveryForm>
+        )}
+      </AccountReoveryContent>
+    </Container>
+  );
 };
 
 export default RecoverPassword;

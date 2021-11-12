@@ -6,33 +6,26 @@ import styled from 'styled-components';
 import RecoverPassword from '../pages/RecoverPassword';
 
 const Container = styled.div`
-   background: #e0e0e0;
-   height: 100vh;
-   width: 100vw;
-   overflow: visible;
-   overflow-x: hidden;
-   font-family: 'Inter', sans-serif;
+  background: #3a3939;
+  height: 100vh;
+  width: 100vw;
+  overflow: visible;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
 `;
 
 const Router = () => {
-   return (
-      <Container>
-         <Route exact path="/">
-            <LogIn />
-         </Route>
-         <Route path="/createAccount">
-            <CreateAccount />
-         </Route>
+  return (
+    <Container>
+      <Route exact path="/" component={LogIn} />
 
-         <Route path="/homePage">
-            <HomePage />
-         </Route>
+      <Route path="/createAccount" component={CreateAccount} />
 
-         <Route path="/recoverPassword">
-            <RecoverPassword />
-         </Route>
-      </Container>
-   );
+      <Route path="/homePage" component={HomePage} />
+
+      <Route path="/recoverPassword" component={RecoverPassword} />
+    </Container>
+  );
 };
 
 export default Router;

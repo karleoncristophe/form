@@ -5,242 +5,242 @@ import api from '../services/api';
 import { Checkbox, message } from 'antd';
 
 const Conteiner = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100vw;
-   height: 100vh;
-   background-size: cover;
-   font-family: 'Inter', sans-serif;
+  display: flex;
+  background: #e0e0e0;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  font-family: 'Inter', sans-serif;
 `;
 
 const SignInContent = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 600px;
-   height: 700px;
-   border-radius: 12px;
-   background: #ffffff;
-   box-shadow: 0 0 1.2em #b4b4b4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 700px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 0 1.2em #b4b4b4;
 `;
 
 const GetStartedContent = styled.form`
-   display: flex;
-   padding: 10px;
-   flex-direction: column;
-   background: #faebeb16;
-   width: 500px;
-   border-radius: 10px;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  background: #faebeb16;
+  width: 500px;
+  border-radius: 10px;
 `;
 
 const Title = styled.h1`
-   line-height: 25px;
-   font-size: 2.7rem;
-   font-weight: 600;
+  line-height: 25px;
+  font-size: 2.7rem;
+  font-weight: 600;
 `;
 
 const SubTitle = styled.span`
-   font-size: 1rem;
-   margin-bottom: 20px;
-   font-weight: 500;
-   color: #302f2f;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #302f2f;
 `;
 
 const InputText = styled.span`
-   font-size: 1.2rem;
-   font-weight: 400;
-   color: #5a5858;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #5a5858;
 `;
 
 const Input = styled.input`
-   margin-top: 8px;
-   margin-bottom: 10px;
-   height: 50px;
-   width: 100%;
-   font-size: 1rem;
-   padding: 10px;
-   outline: none;
-   background: none;
-   border: 1.5px solid#ffa500;
-   border-top: none;
-   border-right: none;
-   border-left: none;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  height: 50px;
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  outline: none;
+  background: none;
+  border: 1.5px solid#ffa500;
+  border-top: none;
+  border-right: none;
+  border-left: none;
 
-   &&:focus {
-      border: 2px solid#ffa500;
-      border-radius: 10px;
-   }
+  &&:focus {
+    border: 2px solid#ffa500;
+    border-radius: 10px;
+  }
 
-   &&:hover {
-      border: 2px solid#ffa500;
-      border-radius: 10px;
-   }
+  &&:hover {
+    border: 2px solid#ffa500;
+    border-radius: 10px;
+  }
 `;
 
 const SignIn = styled.button`
-   border: none;
-   height: 55px;
-   width: 100%;
-   border-radius: 10px;
-   margin-top: 30px;
-   background: #e0e0e0;
-   font-size: 1.2rem;
-   color: #ffa908;
+  border: none;
+  height: 55px;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 30px;
+  background: #e0e0e0;
+  font-size: 1.2rem;
+  color: #ffa908;
 
-   &&:hover {
-      transition: 1s;
-      transform: translateY(-3px);
-      color: #ffffff;
-      box-shadow: 0 0 1em #b6b6b6;
-      background: #ffa908;
-   }
+  &&:hover {
+    transition: 1s;
+    transform: translateY(-3px);
+    color: #ffffff;
+    box-shadow: 0 0 1em #b6b6b6;
+    background: #ffa908;
+  }
 `;
 
 const SignUp = styled.button`
-   border: none;
-   height: 55px;
-   width: 100%;
-   border-radius: 15px;
-   margin-top: 20px;
-   background: #ffa908;
-   box-shadow: 0 0 1em #9c9c9c;
-   font-size: 1.2rem;
-   color: #ffffff;
+  border: none;
+  height: 55px;
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 20px;
+  background: #ffa908;
+  box-shadow: 0 0 1em #9c9c9c;
+  font-size: 1.2rem;
+  color: #ffffff;
 
-   &&:hover {
-      background: #dd9510;
-      transform: translateY(-3px);
-      transition: 1s;
-      color: #ffffff;
-   }
+  &&:hover {
+    background: #dd9510;
+    transform: translateY(-3px);
+    transition: 1s;
+    color: #ffffff;
+  }
 `;
 
 const CheckboxContent = styled.div`
-   display: flex;
-   justify-content: space-between;
-   margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 `;
 
 const CheckboxInput = styled(Checkbox)`
-   font-size: 1rem;
+  font-size: 1rem;
 `;
 
 const ForgotPassword = styled.span`
-   font-size: 1rem;
-   color: #ffa500;
-   text-decoration: underline;
-   cursor: pointer;
+  font-size: 1rem;
+  color: #ffa500;
+  text-decoration: underline;
+  cursor: pointer;
 
-   &&:hover {
-      color: #d68d06;
-   }
+  &&:hover {
+    color: #d68d06;
+  }
 `;
 
 const CreateAccountContent = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100%;
-   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
 `;
 
 const CreateAccount = styled.span`
-   font-size: 1rem;
-   font-family: Arial, Helvetica, sans-serif;
-   padding: 0px 13px 0px 13px;
-   color: #5a5858;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0px 13px 0px 13px;
+  color: #5a5858;
 `;
 
 const Line = styled.div`
-   display: flex;
-   width: 30%;
-   height: 1px;
-   background: #bebaba;
+  display: flex;
+  width: 30%;
+  height: 1px;
+  background: #bebaba;
 `;
 
 const LogIn = () => {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // eslint-disable-next-line
+  const [state, setState] = useState({});
+  const clear = () => {
+    setEmail('');
+    setPassword('');
+  };
+  const onChange = e => {
+    console.log(`checked = ${e.target.checked}`);
+  };
+  const submit = async () => {
+    const body = {
+      email,
+      password,
+    };
 
-   const clear = () => {
-      setEmail('');
-      setPassword('');
-   };
-   const onChange = e => {
-      console.log(`checked = ${e.target.checked}`);
-   };
-   const submit = async () => {
-      const body = {
-         email,
-         password,
-      };
-
-      try {
-         const { data } = await api.post('/login', body);
-         if (!!data.error) {
-            message.error(data.error);
-         }
-
-         localStorage.setItem('@form.token', data.token);
-      } catch (e) {
-         console.log(e);
+    try {
+      const { data } = await api.post('/login', body);
+      if (!!data.error) {
+        message.error(data.error);
       }
-      clear();
-   };
 
-   return (
-      <Conteiner>
-         <SignInContent>
-            <GetStartedContent>
-               <Title>Sign In</Title>
-               <SubTitle>Welcome, we missed you!</SubTitle>
-               <InputText>Your Email</InputText>
-               <Input
-                  autoFocus
-                  placeholder="Enter you email. "
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-               />
-               <InputText>Password</InputText>
-               <Input
-                  type="password"
-                  name="password"
-                  autoComplete="on"
-                  placeholder="Enter you password."
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-               />
-               <CheckboxContent>
-                  <CheckboxInput onChange={onChange}>Remember me</CheckboxInput>
-                  <Link to="recoverPassword">
-                     <ForgotPassword>Forgot Password?</ForgotPassword>
-                  </Link>
-               </CheckboxContent>
+      localStorage.setItem('@form.token', data.token);
+    } catch (e) {
+      console.log(e);
+    }
+    clear();
+    return () => {
+      setState({}); // update an unmounted component
+    };
+  };
 
-               <Link to="/homePage">
-                  <SignIn
-                     disabled={email === '' || password === ''}
-                     onClick={submit}
-                  >
-                     Sign In
-                  </SignIn>
-               </Link>
+  return (
+    <Conteiner>
+      <SignInContent>
+        <GetStartedContent>
+          <Title>Sign In</Title>
+          <SubTitle>Welcome, we missed you!</SubTitle>
+          <InputText>Your Email</InputText>
+          <Input
+            autoFocus
+            placeholder="Enter you email. "
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <InputText>Password</InputText>
+          <Input
+            type="password"
+            name="password"
+            autoComplete="on"
+            placeholder="Enter you password."
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <CheckboxContent>
+            <CheckboxInput onChange={onChange}>Remember me</CheckboxInput>
+            <Link to="recoverPassword">
+              <ForgotPassword>Forgot Password?</ForgotPassword>
+            </Link>
+          </CheckboxContent>
 
-               <CreateAccountContent>
-                  <Line />
-                  <CreateAccount>or create an account</CreateAccount>
-                  <Line />
-               </CreateAccountContent>
-               <Link to="/createAccount">
-                  <SignUp disabled={email !== '' || password !== ''}>
-                     Sign Up
-                  </SignUp>
-               </Link>
-            </GetStartedContent>
-         </SignInContent>
-      </Conteiner>
-   );
+          <Link to="/homePage">
+            <SignIn disabled={email === '' || password === ''} onClick={submit}>
+              Sign In
+            </SignIn>
+          </Link>
+
+          <CreateAccountContent>
+            <Line />
+            <CreateAccount>or create an account</CreateAccount>
+            <Line />
+          </CreateAccountContent>
+          <Link to="/createAccount">
+            <SignUp disabled={email !== '' || password !== ''}>Sign Up</SignUp>
+          </Link>
+        </GetStartedContent>
+      </SignInContent>
+    </Conteiner>
+  );
 };
 
 export default LogIn;
