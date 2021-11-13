@@ -1,26 +1,28 @@
 const routes = require('express').Router();
-const User = require('../models/User');
-const Image = require('../models/Image');
+const USER = require('../models/User');
+const IMAGE = require('../models/Image');
+const TODOLIST = require('../models/ToDoList');
 const bcrypt = require('bcryptjs');
 const generateToken = require('../common/generateToken');
 const multer = require('multer');
 const authenticate = require('../middlewares/authenticate');
 const upload = require('../middlewares/upload');
 
+// ==>> USERS ==>>
 routes.get('/users', async (req, res) => {
-  const users = await User.find().sort({ createdAt: 1 });
+  const users = await USER.find().sort({ createdAt: 1 });
   res.status(200).send(users);
 });
 
 routes.get('/me', authenticate, async (req, res) => {
-  const me = await User.findOne({ _id: req.logged });
+  const me = await USER.findOne({ _id: req.logged });
   res.status(200).send(me);
 });
 
 routes.post('/createAccount', async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (await User.findOne({ email })) {
+  if (await USER.findOne({ email })) {
     res.status(400).send({
       error: 'There is already a registered user with this email.',
     });
@@ -29,7 +31,7 @@ routes.post('/createAccount', async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    const user = await USER.create({
       name,
       email,
       password: hash,
@@ -47,7 +49,7 @@ routes.post('/createAccount', async (req, res) => {
 routes.delete('/deleteUser/:id', authenticate, async (req, res) => {
   const { id } = req.params;
 
-  const user = await User.findById({ _id: id });
+  const user = await USER.findById({ _id: id });
 
   await user.remove();
 
@@ -60,7 +62,7 @@ routes.put('/updateUsers/:id', authenticate, async (req, res) => {
   const objects = { name: name };
 
   try {
-    const updateData = await User.findOneAndUpdate(
+    const updateData = await USER.findOneAndUpdate(
       {
         _id: id,
       },
@@ -79,7 +81,7 @@ routes.put('/updateUsers/:id', authenticate, async (req, res) => {
 routes.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email }).select('+password');
+  const user = await USER.findOne({ email }).select('+password');
 
   if (!user) {
     res.status(400).send({
@@ -103,13 +105,70 @@ routes.post('/login', async (req, res) => {
   });
 });
 
+// ==>> TODO LIST ==>>
+routes.get('/toDoList', async (req, res) => {
+  const todo = await TODOLIST.find().sort({ createdAt: 1 });
+  res.status(200).send(todo);
+});
+
+routes.post('/createToDoList', async (req, res) => {
+  const { title, todo } = req.body;
+
+  try {
+    const toDo = await TODOLIST.create({
+      title,
+      todo,
+    });
+
+    res.status(201).send(toDo);
+  } catch (e) {
+    res.status(400).send({
+      message: 'Error creating list.',
+      error: e,
+    });
+  }
+});
+
+routes.delete('/deleteToDoList/:id', authenticate, async (req, res) => {
+  const { id } = req.params;
+
+  const todo = await TODOLIST.findById({ _id: id });
+
+  await todo.remove();
+
+  return res.status(200).send({ message: 'Deleted list.' });
+});
+
+routes.put('/updateToDoList/:id', authenticate, async (req, res) => {
+  const { id } = req.params;
+  const { title, todo } = req.body;
+  const objects = { title: title, todo: todo };
+
+  try {
+    const updateData = await TODOLIST.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      objects,
+      { new: true }
+    );
+
+    res.status(200).send(updateData);
+  } catch (error) {
+    res.status(403).send({
+      error: 'Error while updating.',
+    });
+  }
+});
+
+// ==>> IMAGES ==>>
 routes.get('/image', async (req, res) => {
-  const image = await Image.find().sort({ createdAt: 1 });
+  const image = await IMAGE.find().sort({ createdAt: 1 });
   res.status(200).send(image);
 });
 
 routes.get('/imageMe', async (req, res) => {
-  const image = await User.findOne({ _id: req.logged });
+  const image = await IMAGE.findOne({ _id: req.logged });
   res.status(200).send(image);
 });
 
@@ -121,7 +180,7 @@ routes.post(
     const { originalname: name, size, key, url = '' } = req.file;
 
     try {
-      const image = await Image.create({
+      const image = await IMAGE.create({
         name,
         size,
         key,
@@ -144,7 +203,7 @@ routes.put('/updateImage/:id', authenticate, async (req, res) => {
   const objects = { key: key };
 
   try {
-    const updateData = await Image.findOneAndUpdate(
+    const updateData = await IMAGE.findOneAndUpdate(
       {
         _id: id,
       },
@@ -163,7 +222,7 @@ routes.put('/updateImage/:id', authenticate, async (req, res) => {
 routes.delete('/deleteImage/:id', authenticate, async (req, res) => {
   const { id } = req.params;
 
-  const image = await Image.findById({ _id: id });
+  const image = await IMAGE.findById({ _id: id });
 
   await image.remove();
 

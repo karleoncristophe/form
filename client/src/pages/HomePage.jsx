@@ -13,7 +13,9 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const InformatiosContent = styled.div`
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
   border: 1px solid red;
   border-left: none;
   border-right: none;
@@ -25,28 +27,11 @@ const Text = styled.p`
   font-size: 2rem;
 `;
 
-const UpdateUserContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-`;
-
 const Input = styled.input``;
 
-const Button = styled.button``;
+const TextArea = styled.textarea``;
 
-const DeleteUserContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  margin-top: 10px;
-`;
+const Button = styled.button``;
 
 const LogIn = () => {
   const [me, setMe] = useState('');
@@ -85,13 +70,13 @@ const LogIn = () => {
 
   return (
     <Container>
-      <InformatiosContent>
+      <Content>
         <Text>Your Informations.</Text>
         <Text>Id: {me?._id}</Text>
         <Text>Name: {me?.name}</Text>
         <Text>Email: {me?.email}</Text>
-      </InformatiosContent>
-      <UpdateUserContent>
+      </Content>
+      <Content>
         <Text>Update your name here.</Text>
 
         <Input
@@ -102,11 +87,15 @@ const LogIn = () => {
         <Button onClick={updateName} disabled={name === ''}>
           Update
         </Button>
-      </UpdateUserContent>
-      <DeleteUserContent>
-        <Text>Delete User</Text>
-        <Button>Delete</Button>
-      </DeleteUserContent>
+      </Content>
+
+      <Content>
+        <Text>To-do list</Text>
+        <Input placeholder="Title" />
+        <TextArea placeholder="List" />
+        <Button>Add Item</Button>
+        <Content></Content>
+      </Content>
     </Container>
   );
 };
