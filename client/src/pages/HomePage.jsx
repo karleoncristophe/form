@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import ImageUpload from '../common/ImageUpload';
+
+import { message } from 'antd';
+// import ImageUpload from '../common/ImageUpload';
 import api from '../services/api';
 
 const Container = styled.div`
@@ -23,16 +25,56 @@ const Text = styled.p`
   font-size: 2rem;
 `;
 
+const UpdateUserContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+`;
+
+const Input = styled.input``;
+
+const Button = styled.button``;
+
+const DeleteUserContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  margin-top: 10px;
+`;
+
 const LogIn = () => {
-  const [user, setUser] = useState('');
+  const [me, setMe] = useState('');
+  const [name, setName] = useState('');
   // eslint-disable-next-line
   const [state, setState] = useState({});
+
+  const updateName = () => {
+    const body = {
+      name: name,
+    };
+
+    try {
+      // eslint-disable-next-line
+      const { data } = api.put(`/updateUsers/${me?._id}`, body);
+      message.success('Updated username.');
+    } catch (error) {
+      message.error('Username not updated.');
+    }
+    setName('');
+    window.location.reload();
+  };
 
   useEffect(() => {
     const getInformations = async () => {
       const { data } = await api.get('me');
 
-      setUser(data);
+      setMe(data);
     };
     getInformations();
     return () => {
@@ -44,11 +86,27 @@ const LogIn = () => {
   return (
     <Container>
       <InformatiosContent>
-        <Text>Id: {user?._id}</Text>
-        <Text>Name: {user?.name}</Text>
-        <Text>Email: {user?.email}</Text>
+        <Text>Your Informations.</Text>
+        <Text>Id: {me?._id}</Text>
+        <Text>Name: {me?.name}</Text>
+        <Text>Email: {me?.email}</Text>
       </InformatiosContent>
-      <ImageUpload />
+      <UpdateUserContent>
+        <Text>Update your name here.</Text>
+
+        <Input
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="Update your name here"
+        />
+        <Button onClick={updateName} disabled={name === ''}>
+          Update
+        </Button>
+      </UpdateUserContent>
+      <DeleteUserContent>
+        <Text>Delete User</Text>
+        <Button>Delete</Button>
+      </DeleteUserContent>
     </Container>
   );
 };
