@@ -1,9 +1,11 @@
 const mongoose = require('../libs/Mongoose');
+const Schema = mongoose.Schema;
 
 const TodoListSchema = new mongoose.Schema(
   {
     title: String,
     todo: String,
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   {
     timestamps: {

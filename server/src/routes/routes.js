@@ -107,7 +107,7 @@ routes.post('/login', async (req, res) => {
 
 // ==>> TODO LIST ==>>
 routes.get('/toDoList', async (req, res) => {
-  const todo = await TODOLIST.find().sort({ createdAt: 1 });
+  const todo = await TODOLIST.find().sort({ createdAt: 1 }).populate('user');
   res.status(200).send(todo);
 });
 
