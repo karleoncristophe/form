@@ -55,8 +55,8 @@ const LogIn = () => {
     setOpenEdit(prev => !prev);
   };
 
-  const handleDelete = async (_id, e) => {
-    await api.delete(`/deleteToDoList/${_id}`);
+  const handleDelete = async (id, e) => {
+    await api.delete(`/deleteToDoList/${id}`);
   };
 
   const updateName = () => {
