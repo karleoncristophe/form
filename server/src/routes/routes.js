@@ -46,7 +46,7 @@ routes.post('/createAccount', async (req, res) => {
   }
 });
 
-routes.delete('/deleteUser/:id', authenticate, async (req, res) => {
+routes.delete('/deleteUser/:id', async (req, res) => {
   const { id } = req.params;
 
   const user = await USER.findById({ _id: id });
@@ -56,7 +56,7 @@ routes.delete('/deleteUser/:id', authenticate, async (req, res) => {
   return res.status(200).send({ message: 'Deleted image.' });
 });
 
-routes.put('/updateUsers/:id', authenticate, async (req, res) => {
+routes.put('/updateUsers/:id', async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   const objects = { name: name };

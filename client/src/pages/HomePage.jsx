@@ -33,14 +33,31 @@ const TextArea = styled.textarea``;
 
 const Button = styled.button``;
 
+const EditContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: ${props => (props.openEdit ? '100%' : '0px')};
+  transition: all ease 0.5s;
+  overflow: hidden;
+`;
+
 const LogIn = () => {
   const [me, setMe] = useState('');
-  const [toDoList, setToDoList] = useState([]);
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [todo, setTodo] = useState('');
+  const [toDoList, setToDoList] = useState([]);
   // eslint-disable-next-line
   const [state, setState] = useState({});
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const handleOpenEdit = () => {
+    setOpenEdit(prev => !prev);
+  };
+
+  const handleDelete = async (_id, e) => {
+    await api.delete(`/deleteToDoList/${_id}`);
+  };
 
   const updateName = () => {
     const body = {
@@ -135,12 +152,21 @@ const LogIn = () => {
           onChange={e => setTodo(e.target.value)}
         />
         <Button onClick={postToDoList}>Add Item</Button>
-        {toDoList?.map((data, key) => (
-          <Content key={key}>
+        {toDoList?.slice().map((data, index) => (
+          <Content key={data._id + index.toString()}>
             <Text>{data?.title}</Text>
             <Text>{data?.todo}</Text>
-            <Button>Edit Item</Button>
-            <Button>Delete Item</Button>
+            <Button onClick={handleOpenEdit}>
+              {openEdit ? 'Close Edit' : 'Open Edit'}
+            </Button>
+            <EditContent openEdit={openEdit}>
+              <Input placeholder="Edit Title" />
+              <Input placeholder="Edit List" />
+              <Button onClick={handleOpenEdit}>Confirm Edit</Button>
+            </EditContent>
+            <Button onClick={e => handleDelete(data._id, e)}>
+              Delete Item
+            </Button>
           </Content>
         ))}
       </Content>
