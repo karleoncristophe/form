@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { message } from 'antd';
 // import ImageUpload from '../common/ImageUpload';
 import api from '../services/api';
+import ToDoList from '../common/ToDoList';
 
 const Container = styled.div`
   background: #3f3e3e;
@@ -33,19 +34,13 @@ const TextArea = styled.textarea``;
 
 const Button = styled.button``;
 
-const EditContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: ${props => (props.openEdit ? '100%' : '0px')};
-  transition: all ease 0.5s;
-  overflow: hidden;
-`;
-
 const LogIn = () => {
   const [me, setMe] = useState('');
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [todo, setTodo] = useState('');
+  const [editTodo, setEditTodo] = useState('');
+  const [editTitle, setEditTitle] = useState('');
   const [toDoList, setToDoList] = useState([]);
   // eslint-disable-next-line
   const [state, setState] = useState({});
@@ -57,16 +52,18 @@ const LogIn = () => {
 
   const handleDelete = async (id, e) => {
     await api.delete(`/deleteToDoList/${id}`);
+    const deleteItem = await toDoList.filter(get => get._id !== id);
+    setToDoList(deleteItem);
   };
 
-  const updateName = () => {
+  const handleUpdateName = async (id, e) => {
     const body = {
       name: name,
     };
 
     try {
       // eslint-disable-next-line
-      const { data } = api.put(`/updateUsers/${me?._id}`, body);
+      const { data } = await api.put(`/updateUsers/${id}`, body);
       message.success('Updated username.');
     } catch (error) {
       message.error('Username not updated.');
@@ -75,7 +72,26 @@ const LogIn = () => {
     window.location.reload();
   };
 
-  const postToDoList = () => {
+  const handleUpdateItem = async (id, e) => {
+    const body = {
+      title: editTitle,
+      todo: editTodo,
+    };
+
+    try {
+      // eslint-disable-next-line
+      const { data } = await api.put(`/updateToDoList/${id}`, body);
+
+      message.success('Updated list.');
+    } catch (error) {
+      message.error('List not updated.');
+    }
+
+    // editTitle('');
+    // editTodo('');
+  };
+
+  const handleAddItem = async () => {
     const body = {
       title: title,
       todo: todo,
@@ -84,7 +100,11 @@ const LogIn = () => {
 
     try {
       // eslint-disable-next-line
-      const { data } = api.post('createToDoList', body);
+      const { data } = await api.post('createToDoList', body);
+      const newList = { title, todo };
+      const addItem = toDoList;
+      addItem.push(newList);
+      setToDoList(addItem);
     } catch (error) {
       console.log(error);
     }
@@ -134,7 +154,10 @@ const LogIn = () => {
           onChange={e => setName(e.target.value)}
           placeholder="Update your name here"
         />
-        <Button onClick={updateName} disabled={name === ''}>
+        <Button
+          onClick={e => handleUpdateName(me?._id, e)}
+          disabled={name === ''}
+        >
           Update
         </Button>
       </Content>
@@ -151,23 +174,22 @@ const LogIn = () => {
           value={todo}
           onChange={e => setTodo(e.target.value)}
         />
-        <Button onClick={postToDoList}>Add Item</Button>
-        {toDoList?.slice().map((data, index) => (
-          <Content key={data._id + index.toString()}>
-            <Text>{data?.title}</Text>
-            <Text>{data?.todo}</Text>
-            <Button onClick={handleOpenEdit}>
-              {openEdit ? 'Close Edit' : 'Open Edit'}
-            </Button>
-            <EditContent openEdit={openEdit}>
-              <Input placeholder="Edit Title" />
-              <Input placeholder="Edit List" />
-              <Button onClick={handleOpenEdit}>Confirm Edit</Button>
-            </EditContent>
-            <Button onClick={e => handleDelete(data._id, e)}>
-              Delete Item
-            </Button>
-          </Content>
+        <Button onClick={handleAddItem} disabled={todo === '' || title === ''}>
+          Add Item
+        </Button>
+        {toDoList?.map((data, index) => (
+          <ToDoList
+            key={data._id + index.toString()}
+            data={data}
+            editTitle={editTitle}
+            setEditTitle={setEditTitle}
+            editTodo={editTodo}
+            setEditTodo={setEditTodo}
+            openEdit={openEdit}
+            handleDelete={handleDelete}
+            handleOpenEdit={handleOpenEdit}
+            handleUpdateItem={handleUpdateItem}
+          />
         ))}
       </Content>
     </Container>

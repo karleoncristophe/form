@@ -111,13 +111,15 @@ routes.get('/toDoList', async (req, res) => {
   res.status(200).send(todo);
 });
 
-routes.post('/createToDoList', async (req, res) => {
+routes.post('/createToDoList', authenticate, async (req, res) => {
+  const me = await USER.findOne({ _id: req.logged });
   const { title, todo } = req.body;
 
   try {
     const toDo = await TODOLIST.create({
       title,
       todo,
+      user: me,
     });
 
     res.status(201).send(toDo);
@@ -129,7 +131,7 @@ routes.post('/createToDoList', async (req, res) => {
   }
 });
 
-routes.delete('/deleteToDoList/:id', authenticate, async (req, res) => {
+routes.delete('/deleteToDoList/:id', async (req, res) => {
   const { id } = req.params;
 
   const todo = await TODOLIST.findById({ _id: id });
@@ -139,7 +141,7 @@ routes.delete('/deleteToDoList/:id', authenticate, async (req, res) => {
   return res.status(200).send({ message: 'Deleted list.' });
 });
 
-routes.put('/updateToDoList/:id', authenticate, async (req, res) => {
+routes.put('/updateToDoList/:id', async (req, res) => {
   const { id } = req.params;
   const { title, todo } = req.body;
   const objects = { title: title, todo: todo };
@@ -154,6 +156,7 @@ routes.put('/updateToDoList/:id', authenticate, async (req, res) => {
     );
 
     res.status(200).send(updateData);
+    console.log(updateData);
   } catch (error) {
     res.status(403).send({
       error: 'Error while updating.',
