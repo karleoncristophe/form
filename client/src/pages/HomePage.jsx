@@ -47,7 +47,11 @@ const LogIn = () => {
   const [openEdit, setOpenEdit] = useState(false);
 
   const handleOpenEdit = () => {
-    setOpenEdit(prev => !prev);
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
   };
 
   const handleDelete = async (id, e) => {
@@ -188,6 +192,7 @@ const LogIn = () => {
             openEdit={openEdit}
             handleDelete={handleDelete}
             handleOpenEdit={handleOpenEdit}
+            handleCloseEdit={handleCloseEdit}
             handleUpdateItem={handleUpdateItem}
           />
         ))}

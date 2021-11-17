@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import EditList from './EditList';
 
 const Content = styled.div`
   display: flex;
@@ -13,19 +14,7 @@ const Text = styled.p`
   font-size: 2rem;
 `;
 
-const Input = styled.input``;
-
 const Button = styled.button``;
-
-const TextArea = styled.textarea``;
-
-const EditContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: ${props => (props.openEdit ? '100%' : '0px')};
-  transition: all ease 0.5s;
-  overflow: hidden;
-`;
 
 const ToDoList = ({
   data,
@@ -35,6 +24,7 @@ const ToDoList = ({
   setEditTodo,
   handleDelete,
   handleOpenEdit,
+  handleCloseEdit,
   handleUpdateItem,
   openEdit,
 }) => {
@@ -42,24 +32,18 @@ const ToDoList = ({
     <Content>
       <Text>{data?.title}</Text>
       <Text>{data?.todo}</Text>
-      <Button onClick={handleOpenEdit}>
-        {openEdit ? 'Close Edit' : 'Open Edit'}
-      </Button>
-      <EditContent openEdit={openEdit}>
-        <Input
-          placeholder="Edit Title"
-          value={editTitle}
-          onChange={e => setEditTitle(e.target.value)}
-        />
-        <TextArea
-          placeholder="Edit List"
-          value={editTodo}
-          onChange={e => setEditTodo(e.target.value)}
-        />
-        <Button onClick={e => handleUpdateItem(data._id, e)}>
-          Confirm Edit
-        </Button>
-      </EditContent>
+
+      <EditList
+        data={data}
+        openEdit={openEdit}
+        editTitle={editTitle}
+        setEditTitle={setEditTitle}
+        editTodo={editTodo}
+        setEditTodo={setEditTodo}
+        handleUpdateItem={handleUpdateItem}
+        handleOpenEdit={handleOpenEdit}
+        handleCloseEdit={handleCloseEdit}
+      />
       <Button onClick={e => handleDelete(data._id, e)}>Delete Item</Button>
     </Content>
   );
