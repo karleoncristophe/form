@@ -44,15 +44,6 @@ const LogIn = () => {
   const [toDoList, setToDoList] = useState([]);
   // eslint-disable-next-line
   const [state, setState] = useState({});
-  const [openEdit, setOpenEdit] = useState(false);
-
-  const handleOpenEdit = () => {
-    setOpenEdit(true);
-  };
-
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
 
   const handleDelete = async (id, e) => {
     await api.delete(`/deleteToDoList/${id}`);
@@ -124,9 +115,8 @@ const LogIn = () => {
     };
     getInformations();
     return () => {
-      setState({}); // update an unmounted component
+      setState({});
     };
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -137,9 +127,8 @@ const LogIn = () => {
     };
     getInformations();
     return () => {
-      setState({}); // update an unmounted component
+      setState({});
     };
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -189,10 +178,7 @@ const LogIn = () => {
             setEditTitle={setEditTitle}
             editTodo={editTodo}
             setEditTodo={setEditTodo}
-            openEdit={openEdit}
             handleDelete={handleDelete}
-            handleOpenEdit={handleOpenEdit}
-            handleCloseEdit={handleCloseEdit}
             handleUpdateItem={handleUpdateItem}
           />
         ))}

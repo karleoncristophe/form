@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditList from './EditList';
 
@@ -23,11 +24,17 @@ const ToDoList = ({
   setEditTitle,
   setEditTodo,
   handleDelete,
-  handleOpenEdit,
-  handleCloseEdit,
   handleUpdateItem,
-  openEdit,
 }) => {
+  const [openEdit, setOpenEdit] = useState(false);
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
   return (
     <Content>
       <Text>{data?.title}</Text>
