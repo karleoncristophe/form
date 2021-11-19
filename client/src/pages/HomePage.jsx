@@ -17,10 +17,22 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
-  border-left: none;
-  border-right: none;
-  border-top: none;
+`;
+
+const ContentList = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  align-items: center;
+  height: 300px;
+  ::-webkit-scrollbar {
+    height: 10px;
+    margin-top: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 0.625rem;
+  }
 `;
 
 const Text = styled.p`
@@ -72,6 +84,9 @@ const LogIn = () => {
     };
 
     try {
+      if ((await editTitle) === '' || editTodo === '') {
+        return message.warning('Unable to update! Please write something.');
+      }
       // eslint-disable-next-line
       const { update } = await api.put(`/updateToDoList/${id}`, body);
       const { data } = await api.get('toDoList');
@@ -128,7 +143,6 @@ const LogIn = () => {
   useEffect(() => {
     const getInformations = async () => {
       const { data } = await api.get('toDoList');
-
       setToDoList(data);
     };
     getInformations();
@@ -176,18 +190,20 @@ const LogIn = () => {
         <Button onClick={handleAddItem} disabled={todo === '' || title === ''}>
           Add Item
         </Button>
-        {toDoList?.map((data, index) => (
-          <ToDoList
-            key={data._id + index.toString()}
-            data={data}
-            editTitle={editTitle}
-            setEditTitle={setEditTitle}
-            editTodo={editTodo}
-            setEditTodo={setEditTodo}
-            handleDelete={handleDelete}
-            handleUpdateItem={handleUpdateItem}
-          />
-        ))}
+        <ContentList>
+          {toDoList?.map((data, index) => (
+            <ToDoList
+              key={data._id + index.toString()}
+              data={data}
+              editTitle={editTitle}
+              setEditTitle={setEditTitle}
+              editTodo={editTodo}
+              setEditTodo={setEditTodo}
+              handleDelete={handleDelete}
+              handleUpdateItem={handleUpdateItem}
+            />
+          ))}
+        </ContentList>
       </Content>
     </Container>
   );

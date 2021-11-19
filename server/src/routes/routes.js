@@ -156,7 +156,6 @@ routes.put('/updateToDoList/:id', async (req, res) => {
     );
 
     res.status(200).send(updateData);
-    console.log(updateData);
   } catch (error) {
     res.status(403).send({
       error: 'Error while updating.',
