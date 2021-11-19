@@ -47,8 +47,6 @@ const LogIn = () => {
 
   const handleDelete = async (id, e) => {
     await api.delete(`/deleteToDoList/${id}`);
-    const deleteItem = await toDoList.filter(get => get._id !== id);
-    setToDoList(deleteItem);
   };
 
   const handleUpdateName = async (id, e) => {
@@ -82,8 +80,8 @@ const LogIn = () => {
       message.error('List not updated.');
     }
 
-    // editTitle('');
-    // editTodo('');
+    setEditTitle('');
+    setEditTodo('');
   };
 
   const handleAddItem = async () => {
@@ -96,10 +94,6 @@ const LogIn = () => {
     try {
       // eslint-disable-next-line
       const { data } = await api.post('createToDoList', body);
-      const newList = { title, todo };
-      const addItem = toDoList;
-      addItem.push(newList);
-      setToDoList(addItem);
     } catch (error) {
       console.log(error);
     }
