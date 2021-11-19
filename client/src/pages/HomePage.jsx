@@ -45,24 +45,24 @@ const LogIn = () => {
   // eslint-disable-next-line
   const [state, setState] = useState({});
 
-  const handleDelete = async (id, e) => {
-    await api.delete(`/deleteToDoList/${id}`);
-  };
-
-  const handleUpdateName = async (id, e) => {
+  const handleAddItem = async () => {
     const body = {
-      name: name,
+      title: title,
+      todo: todo,
+      user: me?._id,
     };
 
     try {
       // eslint-disable-next-line
-      const { data } = await api.put(`/updateUsers/${id}`, body);
-      message.success('Updated username.');
+      const { postItem } = await api.post('createToDoList', body);
+      const { data } = await api.get('toDoList');
+
+      setToDoList(data);
     } catch (error) {
-      message.error('Username not updated.');
+      console.log(error);
     }
-    setName('');
-    window.location.reload();
+    setTitle('');
+    setTodo('');
   };
 
   const handleUpdateItem = async (id, e) => {
@@ -73,8 +73,9 @@ const LogIn = () => {
 
     try {
       // eslint-disable-next-line
-      const { data } = await api.put(`/updateToDoList/${id}`, body);
-
+      const { update } = await api.put(`/updateToDoList/${id}`, body);
+      const { data } = await api.get('toDoList');
+      setToDoList(data);
       message.success('Updated list.');
     } catch (error) {
       message.error('List not updated.');
@@ -84,21 +85,27 @@ const LogIn = () => {
     setEditTodo('');
   };
 
-  const handleAddItem = async () => {
+  const handleUpdateName = async (id, e) => {
     const body = {
-      title: title,
-      todo: todo,
-      user: me?._id,
+      name: name,
     };
 
     try {
       // eslint-disable-next-line
-      const { data } = await api.post('createToDoList', body);
+      const { update } = await api.put(`/updateUsers/${id}`, body);
+      const { data } = await api.get('me');
+      setMe(data);
+      message.success('Updated username.');
     } catch (error) {
-      console.log(error);
+      message.error('Username not updated.');
     }
-    setTitle('');
-    setTodo('');
+    setName('');
+  };
+
+  const handleDelete = async (id, e) => {
+    await api.delete(`/deleteToDoList/${id}`);
+    const { data } = await api.get('toDoList');
+    setToDoList(data);
   };
 
   useEffect(() => {
