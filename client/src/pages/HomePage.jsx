@@ -103,9 +103,14 @@ const LogIn = () => {
   };
 
   const handleDelete = async (id, e) => {
-    await api.delete(`/deleteToDoList/${id}`);
-    const { data } = await api.get('toDoList');
-    setToDoList(data);
+    try {
+      await api.delete(`/deleteToDoList/${id}`);
+      const { data } = await api.get('toDoList');
+      setToDoList(data);
+      message.success('Deleted list.');
+    } catch (error) {
+      message.error('Unable to delete list.');
+    }
   };
 
   useEffect(() => {

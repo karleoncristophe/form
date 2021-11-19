@@ -114,8 +114,6 @@ const CrateAccount = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line
-  const [state, setState] = useState({});
 
   const submit = async () => {
     setLoading(true);
@@ -137,9 +135,6 @@ const CrateAccount = () => {
     }
 
     setLoading(false);
-    return () => {
-      setState({}); // update an unmounted component
-    };
   };
 
   return (
