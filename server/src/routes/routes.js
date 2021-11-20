@@ -106,8 +106,11 @@ routes.post('/login', async (req, res) => {
 });
 
 // ==>> TODO LIST ==>>
-routes.get('/toDoList', async (req, res) => {
-  const todo = await TODOLIST.find().sort({ createdAt: 1 }).populate('user');
+routes.get('/toDoList', authenticate, async (req, res) => {
+  const me = await USER.findOne({ _id: req.logged });
+  const todo = await TODOLIST.find({ user: me })
+    .sort({ createdAt: 1 })
+    .populate('user');
   res.status(200).send(todo);
 });
 
