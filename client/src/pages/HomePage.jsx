@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
-import { message } from 'antd';
+import { Link } from 'react-router-dom';
+import { message, Drawer } from 'antd';
 // import ImageUpload from '../common/ImageUpload';
 import api from '../services/api';
 import ToDoList from '../common/ToDoList';
@@ -35,9 +35,14 @@ const ContentList = styled.div`
   }
 `;
 
-const Text = styled.p`
-  color: #ffff;
+const Title = styled.p`
+  color: #ffffff;
   font-size: 2rem;
+`;
+
+const Text = styled.p`
+  color: #000000;
+  font-size: 1rem;
 `;
 
 const Input = styled.input``;
@@ -54,8 +59,13 @@ const LogIn = () => {
   const [editTodo, setEditTodo] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [toDoList, setToDoList] = useState([]);
+  const [visible, setVisible] = useState(false);
   // eslint-disable-next-line
   const [state, setState] = useState({});
+
+  const handleLogout = () => {
+    localStorage.removeItem('@form.token');
+  };
 
   const handleAddItem = async () => {
     const body = {
@@ -128,6 +138,23 @@ const LogIn = () => {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      await api.delete(`/deleteUser/${me._id}`);
+
+      message.success('Deleted Account.');
+    } catch (error) {
+      message.error('Unable to delete account.');
+    }
+  };
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+
   useEffect(() => {
     const getInformations = async () => {
       const { data } = await api.get('me');
@@ -145,6 +172,7 @@ const LogIn = () => {
       const { data } = await api.get('toDoList');
       setToDoList(data);
     };
+
     getInformations();
     return () => {
       setState({});
@@ -153,30 +181,58 @@ const LogIn = () => {
 
   return (
     <Container>
-      <Content>
-        <Text>Your Informations.</Text>
-        <Text>Id: {me?._id}</Text>
-        <Text>Name: {me?.name}</Text>
-        <Text>Email: {me?.email}</Text>
-      </Content>
-      <Content>
-        <Text>Update your name here.</Text>
+      <Button type="primary" onClick={showDrawer}>
+        Open Profile
+      </Button>
+      <Drawer
+        title="Your Informations"
+        placement="left"
+        onClose={onClose}
+        visible={visible}
+        width="400px"
+      >
+        <Content>
+          <Content>
+            <Text>Id: {me?._id}</Text>
+            <Text>Name: {me?.name}</Text>
+            <Text>Email: {me?.email}</Text>
+          </Content>
+          <Content>
+            <Text>Update your name here.</Text>
 
-        <Input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Update your name here"
-        />
-        <Button
-          onClick={e => handleUpdateName(me?._id, e)}
-          disabled={name === ''}
-        >
-          Update
-        </Button>
-      </Content>
+            <Input
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="Update your name here"
+            />
+            <Button
+              onClick={e => handleUpdateName(me?._id, e)}
+              disabled={name === ''}
+            >
+              Update
+            </Button>
+          </Content>
+          <Link to="/">
+            <Button
+              onClick={handleLogout}
+              style={{ marginTop: '20px', width: '100%' }}
+            >
+              logout
+            </Button>
+          </Link>{' '}
+          <Link to="/">
+            <Button
+              onClick={handleDeleteAccount}
+              style={{ marginTop: '10px', width: '100%', color: 'red' }}
+            >
+              Delete Account
+            </Button>
+          </Link>
+        </Content>
+      </Drawer>
 
       <Content>
-        <Text>To-do list</Text>
+        <Title>To-do list</Title>
         <Input
           placeholder="Title"
           value={title}
